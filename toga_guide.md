@@ -58,3 +58,19 @@ cd examples/minimal
 python -m minimal
 ```
 
+Hopefully, you will see something like this:
+
+![Screenshot: `mininal` example](images/screenshot-example-minimal.png)
+
+Now on to greater things!
+
+#### The `startup` Function
+In the `minimal` example, we defined a simple function called `starup` and gave it to `toga.App` as a keyword argument. The function will be used as the entry point for the app, and it should return the top-level widget or container of your app's user interface. In the case of the example, `startup` returns a `toga.Label` (which, as you might have guessed, is a widget that displays text).
+
+> *__Note:__ The `startup` function must only return one widget*
+
+As your app grows, your `startup` function will too. We will examine different approaches to writing `startup` functions in a later section
+
+## Chapter Two: Application UI Layout
+
+In [Chapter One](#chapter-one:-getting-started)
