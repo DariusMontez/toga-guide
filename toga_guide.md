@@ -64,12 +64,16 @@ Hopefully, you will see something like this:
 
 Now on to greater things!
 
-#### The `startup` Function
+### The `startup` Function
 In the `minimal` example, we defined a simple function called `starup` and gave it to `toga.App` as a keyword argument. The function will be used as the entry point for the app, and it should return the top-level widget or container of your app's user interface. In the case of the example, `startup` returns a `toga.Label` (which, as you might have guessed, is a widget that displays text).
 
 > *__Note:__ The `startup` function must only return one widget*
 
-As your app grows, your `startup` function will too. We will examine different approaches to writing `startup` functions in a later section
+As your app grows, your `startup` function will too. We will examine different approaches to writing `startup` functions in [Chapter Two](#chapter-two-application-ui-layout).
+
+### Subclassing toga.App
+
+An alternative to the script-like file structure used in the `minimal` example is to create a class which inherits from `toga.App`. This allows access to more features and control of the app, such as setting the initial window size (on desktop platforms).
 
 ## Chapter Two: Application UI Layout
 
@@ -81,7 +85,7 @@ In this approach, every widget is created and stored as a variable so that conta
 
 ### Declarative Approach
 
-This time, widgets and containers are provided as arguments to a top-level, so that the hierarchy is constructed at once. This approach makes use of various container constructor arguments like `children=[...]` or `content=...`
+This time, widgets and containers are provided as arguments to a top-level, so that the hierarchy is constructed at once. This approach makes use of various container constructor arguments like `children=[...]` or `content=...`. Widgets that need to be kept track of are attached to `self` in the `startup` function.
 
 *__example:__ `declarative_layout`*
 ```python
