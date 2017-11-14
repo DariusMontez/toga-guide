@@ -73,4 +73,4 @@ As your app grows, your `startup` function will too. We will examine different a
 
 ## Chapter Two: Application UI Layout
 
-In [Chapter One](#chapter-one:-getting-started)
+In [Chapter One](#chapter-one-getting-started), we breifly touched on `startup` functions. In this chapter, we will expand on this topic and examine several approaches to laying out an application's UI.
