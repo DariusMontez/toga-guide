@@ -74,3 +74,86 @@ As your app grows, your `startup` function will too. We will examine different a
 ## Chapter Two: Application UI Layout
 
 In [Chapter One](#chapter-one-getting-started), we breifly touched on `startup` functions. In this chapter, we will expand on this topic and examine several approaches to laying out an application's UI.
+
+### Imparative Approach
+
+In this approach, every widget is created and stored as a variable so that container widgets can `add()` their children.
+
+### Declarative Approach
+
+This time, widgets and containers are provided as arguments to a top-level, so that the hierarchy is constructed at once. This approach makes use of various container constructor arguments like `children=[...]` or `content=...`
+
+*__example:__ `declarative_layout`*
+```python
+import toga
+from colosseum import CSS
+
+# Note that the indent has been reduced from 4 to 2 spaces -- this layout style
+# has a tendency to "move to the right"
+
+class DeclarativeLayoutApp(toga.App):
+    
+  def startup(self):
+      # self.name stores the app name, the first parameter of __init__
+    self.main_window = toga.MainWindow(self.name, size=(300, 150))
+    self.main_window.app = self
+    
+    # widgets that need reference are attached to self before being inserted
+    # into the hierarchy
+    
+    self.table = toga.Table(headings=["Items"])
+    self.newRowInput = toga.TextInput(placeholder="Row content")
+    self.infoLabel = toga.Label("Click a table row to see more info")
+      
+    self.main_window.content = toga.Box(
+      style=CSS(flex_direction="row"),
+      children=[
+              
+        # left container
+        toga.Box(
+          style=CSS(padding=24),
+          children=[
+                
+            self.table
+                    
+          ]
+        ),
+              
+        # right container
+        toga.Box(
+          style=CSS(padding=24),
+          children=[
+                
+            toga.Box(
+              style=CSS(flex_direction="row"),
+              children=[
+                
+                self.newRowInput,
+                toga.Button("Add Row", self.add_row)
+                      
+              ]
+            ),
+            
+            toga.Button("Remove Row", self.remove_row),
+            
+            self.infoLabel
+          ]
+        ),
+        
+      ]
+    )
+
+    self.main_window.show()
+    
+  def on_table_select(self, table, row):
+    self.infoLabel.text = table.data.rows[row]
+    
+  def add_row(self):
+    self.table.data.insert(0, ["a new row"])
+    
+  def remove_row(self):
+    self.table.data.remove(self.table.data.rows[0])
+
+def main():
+  return DeclarativeLayoutApp('Declarative Layout', 'org.pybee.guide.template')
+```
